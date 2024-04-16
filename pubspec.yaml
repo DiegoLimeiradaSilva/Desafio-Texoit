@@ -40,6 +40,7 @@ dependencies:
   connectivity_plus: 4.0.2
   flutter_spinbox: ^0.13.1
   pluto_grid: ^8.0.0
+  syncfusion_flutter_datagrid: ^25.1.40
 
 dev_dependencies:
   flutter_test:

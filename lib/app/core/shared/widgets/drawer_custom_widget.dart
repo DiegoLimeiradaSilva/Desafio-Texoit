@@ -18,9 +18,11 @@ class _DrawerCustomWidgetState extends State<DrawerCustomWidget> {
     return Drawer(
       backgroundColor: Colors.grey.shade200,
       child: ListView(
-        // Important: Remove any padding from the ListView.
         padding: EdgeInsets.zero,
         children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.02,
+          ),
           ListTile(
             leading: Icon(
               Icons.home,

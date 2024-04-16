@@ -10,16 +10,9 @@ class CoreModule extends Module {
     i.addSingleton<IHttpService>(HttpService.new);
     i.addSingleton(Client.new);
     i.addSingleton(Connectivity.new);
-    // i.addSingleton<IConnectionService>(ConnectionService.new);
-    //  i.addSingleton(Connectivity.new);
-    //  i.addLazySingleton<ILoginRepository>(LoginStore.new);
-    // i.addSingleton<IHttpService>(HttpService.new);
-    //i.addSingleton<UserStore>(UserStore.new);
   }
 
   @override
   // TODO: implement imports
-  List<Module> get imports => [
-        //  UserModule(),
-      ];
+  List<Module> get imports => [];
 }

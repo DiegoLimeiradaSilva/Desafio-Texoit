@@ -19,7 +19,6 @@ class _DashBoardPageState extends State<DashBoardPage> {
   late final VoidCallback disposer;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     Future.delayed(Duration.zero, () async {
@@ -89,7 +88,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                           columns: [
                                             DataColumn(
                                                 label: Text(
-                                              'YEAR',
+                                              'Year',
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold),
                                             )),
@@ -165,7 +164,6 @@ class _DashBoardPageState extends State<DashBoardPage> {
                           scrollDirection: Axis.horizontal,
                           child: Card(
                             child: Column(
-                              // crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 Text(
                                     'Producers with longest and shortest interval between wins',
@@ -390,7 +388,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                             columns: [
                                               DataColumn(
                                                   label: Text(
-                                                'YEAR',
+                                                'Year',
                                                 style: TextStyle(
                                                     fontWeight:
                                                         FontWeight.bold),
@@ -521,7 +519,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                             rows: widget.dashStore
                                                         .studiosWithWinEntity !=
                                                     null
-                                                ? _createRowsIntervalmin()
+                                                ? _createRowsIntervalmax()
                                                 : []),
                                         Text('Minimum'),
                                         DataTable(
@@ -565,7 +563,7 @@ class _DashBoardPageState extends State<DashBoardPage> {
                                             rows: widget.dashStore
                                                         .studiosWithWinEntity !=
                                                     null
-                                                ? _createRowsIntervalmax()
+                                                ? _createRowsIntervalmin()
                                                 : []),
                                       ],
                                     ),

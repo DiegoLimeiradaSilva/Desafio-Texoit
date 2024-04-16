@@ -7,7 +7,6 @@ import '../entities/projection_winners_entity.dart';
 abstract class IDashboardRepository {
   Future<ProjectionWinnersEntity> getProjectionWinners();
   Future<StudiosWithWinEntity> getProjectionStudioWinners();
-//Intervalo de prêmios
   Future<ProjectionIntervalForProducersEntity> getProjectionForProduces();
   Future<List<WinnersEntity>> getWinnersMoviesYear(int year);
 }

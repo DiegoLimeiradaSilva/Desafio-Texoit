@@ -1,10 +1,12 @@
 import 'package:desafiotecnico/app/core/shared/widgets/drawer_custom_widget.dart';
+import 'package:desafiotecnico/app/modules/listmovies/domain/entities/data_movie_entity.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_spinbox/flutter_spinbox.dart';
 import 'package:flutter_triple/flutter_triple.dart';
 import 'package:pluto_grid/pluto_grid.dart';
+import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 import '../domain/stores/list_movies_store.dart';
 
@@ -18,9 +20,9 @@ class ListMoviesPage extends StatefulWidget {
 
 class _DashBoardPageState extends State<ListMoviesPage> {
   late final VoidCallback disposer;
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Future.delayed(Duration.zero, () async {
       await widget.listMoviesStore.getListMovies(0);
@@ -53,25 +55,58 @@ class _DashBoardPageState extends State<ListMoviesPage> {
                   );
                 },
                 onState: (context, state) {
-                  return Container(
-                    child: PlutoGrid(
-                      configuration: const PlutoGridConfiguration(),
-                      createFooter: (stateManager) {
-                        stateManager.setPageSize(5,
-                            notify: false); // default 40
-                        return PlutoPagination(stateManager);
-                      },
-                      // configuration: PlutoGridConfiguration(columnFilter: PlutoGridColumnFilterConfig(filters: PlutoFilterTyp)),
-                      columns: columns,
-                      mode: PlutoGridMode.readOnly,
-                      rows: loadingRow(),
-                      onChanged: (PlutoGridOnChangedEvent event) {
-                        print(event);
-                      },
-                      onLoaded: (PlutoGridOnLoadedEvent event) {
-                        event.stateManager.setShowColumnFilter(true);
-                      },
-                    ),
+                  return Column(
+                    children: [
+                      Container(
+                        child: SfDataGrid(
+                          allowFiltering: true,
+                          source: widget.listMoviesStore.moviesDataSource!,
+                          rowsPerPage: 5,
+                          columnWidthMode: ColumnWidthMode.fill,
+                          columns: <GridColumn>[
+                            GridColumn(
+                                columnName: 'id',
+                                label: Container(
+                                    padding: EdgeInsets.all(16.0),
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      'ID',
+                                    ))),
+                            GridColumn(
+                                columnName: 'year',
+                                label: Container(
+                                    padding: EdgeInsets.all(8.0),
+                                    alignment: Alignment.center,
+                                    child: Text('Year'))),
+                            GridColumn(
+                                columnName: 'title',
+                                label: Container(
+                                    padding: EdgeInsets.all(8.0),
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      'Title',
+                                      overflow: TextOverflow.ellipsis,
+                                    ))),
+                            GridColumn(
+                                columnName: 'winner',
+                                allowFiltering: true,
+                                label: Container(
+                                    padding: EdgeInsets.all(8.0),
+                                    alignment: Alignment.center,
+                                    child: Text('Winner'))),
+                          ],
+                        ),
+                      ),
+                      Container(
+                          height: widget.listMoviesStore.dataPagerHeight,
+                          child: SfDataPager(
+                            delegate: widget.listMoviesStore.moviesDataSource!,
+                            pageCount: widget.listMoviesStore
+                                    .movieswinnersEntity!.content!.length /
+                                widget.listMoviesStore.rowsPerPage,
+                            direction: Axis.horizontal,
+                          ))
+                    ],
                   );
                 })
             : ScopedBuilder(
@@ -88,23 +123,65 @@ class _DashBoardPageState extends State<ListMoviesPage> {
                       Expanded(
                         child: Container(
                           padding: const EdgeInsets.all(30),
-                          child: PlutoGrid(
-                            configuration: const PlutoGridConfiguration(),
-                            createFooter: (stateManager) {
-                              stateManager.setPageSize(5,
-                                  notify: false); // default 40
-                              return PlutoPagination(stateManager);
-                            },
-                            // configuration: PlutoGridConfiguration(columnFilter: PlutoGridColumnFilterConfig(filters: PlutoFilterTyp)),
-                            columns: columns,
-                            mode: PlutoGridMode.readOnly,
-                            rows: loadingRow(),
-                            onChanged: (PlutoGridOnChangedEvent event) {
-                              print(event);
-                            },
-                            onLoaded: (PlutoGridOnLoadedEvent event) {
-                              event.stateManager.setShowColumnFilter(true);
-                            },
+                          child: Column(
+                            children: [
+                              Expanded(
+                                child: SfDataGrid(
+                                  allowFiltering: true,
+                                  source:
+                                      widget.listMoviesStore.moviesDataSource!,
+                                  rowsPerPage:
+                                      widget.listMoviesStore.rowsPerPage,
+                                  columnWidthMode: ColumnWidthMode.fill,
+                                  columns: <GridColumn>[
+                                    GridColumn(
+                                        columnName: 'id',
+                                        label: Container(
+                                            padding: EdgeInsets.all(16.0),
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              'ID',
+                                            ))),
+                                    GridColumn(
+                                        columnName: 'year',
+                                        label: Container(
+                                            padding: EdgeInsets.all(8.0),
+                                            alignment: Alignment.center,
+                                            child: Text('Year'))),
+                                    GridColumn(
+                                        columnName: 'title',
+                                        label: Container(
+                                            padding: EdgeInsets.all(8.0),
+                                            alignment: Alignment.center,
+                                            child: Text(
+                                              'Title',
+                                              overflow: TextOverflow.ellipsis,
+                                            ))),
+                                    GridColumn(
+                                        columnName: 'winner',
+                                        allowFiltering: true,
+                                        label: Container(
+                                            padding: EdgeInsets.all(8.0),
+                                            alignment: Alignment.center,
+                                            child: Text('Winner'))),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                height: widget.listMoviesStore.dataPagerHeight,
+                                child: SfDataPager(
+                                  delegate:
+                                      widget.listMoviesStore.moviesDataSource!,
+                                  pageCount: widget
+                                          .listMoviesStore
+                                          .movieswinnersEntity!
+                                          .content!
+                                          .length /
+                                      widget.listMoviesStore.rowsPerPage,
+                                  direction: Axis.horizontal,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -114,52 +191,5 @@ class _DashBoardPageState extends State<ListMoviesPage> {
               ),
       );
     });
-  }
-
-  List<PlutoColumn> columns = [
-    /// Text Column definition
-    PlutoColumn(
-      title: 'ID',
-      field: 'id',
-      type: PlutoColumnType.number(),
-    ),
-
-    /// Number Column definition
-    PlutoColumn(
-      title: 'Year',
-      field: 'year',
-      type: PlutoColumnType.text(),
-    ),
-
-    /// Select Column definition
-    PlutoColumn(
-      title: 'Title',
-      field: 'title',
-      type: PlutoColumnType.text(),
-    ),
-
-    /// Datetime Column definition
-    PlutoColumn(
-      title: 'Winner',
-      field: 'winner',
-      type: PlutoColumnType.text(),
-    ),
-  ];
-  List<PlutoRow> loadingRow() {
-    List<PlutoRow> listRow = [];
-    if (widget.listMoviesStore.movieswinnersEntity != null)
-      listRow = widget.listMoviesStore.movieswinnersEntity!.content!
-          .map(
-            (e) => PlutoRow(
-              cells: {
-                'id': PlutoCell(value: e.id),
-                'year': PlutoCell(value: e.year),
-                'title': PlutoCell(value: e.title),
-                'winner': PlutoCell(value: e.winner),
-              },
-            ),
-          )
-          .toList();
-    return listRow;
   }
 }

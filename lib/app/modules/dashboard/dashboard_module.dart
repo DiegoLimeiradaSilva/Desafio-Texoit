@@ -17,8 +17,6 @@ class DashboardModule extends Module {
   @override
   void exportedBinds(Injector i) {
     i.addLazySingleton(DashboardStore.new);
-    //  i.addLazySingleton<ILoginRepository>(LoginRepository.new);
-    // i.addLazySingleton<IApiLoginDatasource>(ApiLoginDatasource.new);
   }
 
   @override

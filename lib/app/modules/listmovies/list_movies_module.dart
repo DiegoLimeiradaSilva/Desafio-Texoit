@@ -22,8 +22,6 @@ class ListMoviesModule extends Module {
   @override
   void exportedBinds(Injector i) {
     i.addLazySingleton(ListMoviesStore.new);
-    //  i.addLazySingleton<ILoginRepository>(LoginRepository.new);
-    // i.addLazySingleton<IApiLoginDatasource>(ApiLoginDatasource.new);
   }
 
   @override
@@ -37,7 +35,6 @@ class ListMoviesModule extends Module {
   }
 
   @override
-  // TODO: implement imports
   List<Module> get imports => [
         CoreModule(),
       ];
