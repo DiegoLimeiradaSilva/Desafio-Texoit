@@ -27,3 +27,14 @@ Apos Instalar ,
 - Abrir projeto com VSCode
 - Abrir terminal integracao vscode dar comando flutter pub get baixar pacotes utilizados
 - executar F5 selecionar a plataforma que irá rodar
+
+################################################################################
+########################UPDATES#################################################
+
+FIX* No card "List years with multiple winners", a primeira coluna está em uppercase; 
+* Card "Producers with longest and shortest interval between wins" gerando scroll horizontal e está com os dados invertidos;
+*  Menu está colado no topo do dispositivo impossibilitando selecionar o item Dashboard;
+*  * Na lista o filtro por winner sendo feita por string;
+* Bastante código comentado;
+
+Foi Substituido Plugn Pluto_Grid pelo SFData_Grid
